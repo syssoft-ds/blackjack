@@ -22,7 +22,8 @@ public class Deck {
     public void mischen() {
         List<Karte> kartenList = getKarten();
         // mischen mit Fisher-Yates Algorithmus (https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle)
-        // geht nicht, weil die Liste immutable ist
+        // also einfach die Kartenliste durchgehen und für jede Karte eine zufällige Position in der Liste wählen
+        // und die Karten tauschen
         for (int i = 0; i < kartenList.size()-1; i++) {
             int j = i + (int) (Math.random() * (kartenList.size() - i));
             Karte temp = kartenList.get(i);
@@ -86,7 +87,7 @@ public class Deck {
     public void print() {
         for (Karte karte : karten) {
 //            System.out.println(karte.type + " " + karte.rang);
-            karte.toString();
+            System.out.println(karte.toString());
 
         }
     }
@@ -95,5 +96,18 @@ public class Deck {
         System.out.println(karten.size());
     }
 
+    public ArrayList<Karte> checkDeckByType(Kartentyp type) {
+        // check if deck contains all the cards of a specific type
+        ArrayList<Karte> gefundenKarten = new ArrayList<>();
+        // in einem Deck können maximal 4 Karten eines Typs sein,
+        // also 13 Karten pro Typ
+        //13 * 4 = 52 Karten im Deck
+        for (Karte karte : karten) {
+            if (karte.getType() == type) {
+                gefundenKarten.add(karte);
+            }
+        }
+        return gefundenKarten;
+    }
 
 }
