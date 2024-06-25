@@ -36,9 +36,9 @@ public class Croupier {
         int numAces = 0;
         for (Karte card : hand) {
             KartenRang rang = card.getRang();
-            if (rang.getValue()>9) {
+            if (rang.getValue() > 9) {
                 value += 10;
-            } else if (rang.getValue()==1) {
+            } else if (rang.getValue() == 1) {
                 numAces++;
                 value += 11;
             } else {
@@ -60,6 +60,7 @@ public class Croupier {
             return "Stand";
         }
     }
+
     private String checkWinner(List<Karte> playerHand) {
         int playerValue = calculateHandValue(playerHand);
         int dealerValue = calculateHandValue(this.hand);
@@ -104,33 +105,35 @@ public class Croupier {
     private void handleReceivedMessage(String type, String player, String handString, InetAddress address, int port) throws IOException {
         String response = "";
 
-        if (type.equals("deal_card")) {
-            Karte card = this.deck.ziehen();// nächste Karte ziehen
-            response = "card_dealt;" + card;
-        } else if (type.equals("get_statistics")) {
-            response = "statistics;" + playerStatistics.toString();
-        } else if (type.equals("check_winner")) {
-            // Convert the handString to a list of cards
-            List<Karte> playerHand = new ArrayList<>();
-            if (!handString.isEmpty()) {
-                String[] cards = handString.split(",");
-                for (String card : cards) {
-                    playerHand.add(new Karte(card));//TODO prüfe ob auch wirklich nur eine neue Karte erstellt wird
+        switch (type) {
+            case "deal_card" -> {
+                Karte card = this.deck.ziehen();// nächste Karte ziehen
+                response = "card_dealt;" + card;
+            }
+            case "get_statistics" -> response = "statistics;" + playerStatistics.toString();
+            case "check_winner" -> {
+                // Convert the handString to a list of cards
+                List<Karte> playerHand = new ArrayList<>();
+                if (!handString.isEmpty()) {
+                    String[] cards = handString.split(",");
+                    for (String card : cards) {
+                        playerHand.add(new Karte(card));//TODO prüfe ob auch wirklich nur eine neue Karte erstellt wird
+                    }
                 }
-            }
 
-            // Croupier draws cards for his hand until he stands
-            while (decideAction().equals("Hit")) {
-                hand.add(deck.ziehen());
-            }
+                // Croupier draws cards for his hand until he stands
+                while (decideAction().equals("Hit")) {
+                    hand.add(deck.ziehen());
+                }
 
-            String winner = checkWinner(playerHand);
-            boolean playerWon = winner.equals("Player");
-            updateStatistics(player, playerWon);
-            response = "winner;" + winner;
+                String winner = checkWinner(playerHand);
+                boolean playerWon = winner.equals("Player");
+                updateStatistics(player, playerWon);
+                response = "winner;" + winner;
 
-            if (shouldEjectPlayer(player)) {
-                response += ";eject";
+                if (shouldEjectPlayer(player)) {
+                    response += ";eject";
+                }
             }
         }
 
