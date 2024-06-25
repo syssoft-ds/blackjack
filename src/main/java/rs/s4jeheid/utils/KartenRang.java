@@ -6,7 +6,7 @@ public enum KartenRang {
 
     ASS(1), ZWEI(2), DREI(3), VIER(4), FUENF(5),
     SECHS(6), SIEBEN(7), ACHT(8), NEUN(9), ZEHN(10),
-    BUBE(11), DAME(12), KOENIG(13);
+    BUBE(10), DAME(10), KOENIG(10);
 
     private final int value;
 

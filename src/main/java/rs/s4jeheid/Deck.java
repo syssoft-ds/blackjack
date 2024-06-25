@@ -10,12 +10,15 @@ import java.util.List;
 public class Deck {
     ArrayList<Karte> karten;
 
-    public Deck() {
+    public Deck(int numDecks) {
         karten = new ArrayList<>();
-        for (Kartentyp type : Kartentyp.values()) {
-            for (KartenRang rang : KartenRang.values()) {
-                karten.add(new Karte(type, rang));
+        for (int i = 0; i < numDecks; i++) {
+            for (Kartentyp type : Kartentyp.values()) {
+                for (KartenRang rang : KartenRang.values()) {
+                    karten.add(new Karte(type, rang));
+                }
             }
+
         }
     }
 
@@ -24,7 +27,7 @@ public class Deck {
         // mischen mit Fisher-Yates Algorithmus (https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle)
         // also einfach die Kartenliste durchgehen und für jede Karte eine zufällige Position in der Liste wählen
         // und die Karten tauschen
-        for (int i = 0; i < kartenList.size()-1; i++) {
+        for (int i = 0; i < kartenList.size() - 1; i++) {
             int j = i + (int) (Math.random() * (kartenList.size() - i));
             Karte temp = kartenList.get(i);
             kartenList.set(i, kartenList.get(j));
