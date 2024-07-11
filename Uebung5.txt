@@ -1,0 +1,43 @@
+Aufgabe 1:
+
+Croupier:
+- Methode, um Kartensetzu erstellen
+- speichert seine Handkarten in einer Liste o.ä.
+- Methode, um Karten zu verteilen
+- Methode, um Sieger und Gewinn zu bestimmen
+- Methode, um Statistiken abfragen
+- darauf aufbauen Methode, um zu entscheiden, ob man Spieler rausschmeißen soll
+- Methode fürs eigenständige Spielen
+
+
+Spieler:
+- muss für jede Spielaktion (Hit, Split, Surrender etc.) eine Methode haben,
+  die diese umsetzt.
+- muss eine Variable haben, die sein Startkapital speichert
+- die aktuelle Karten in seiner Hand in einer Liste o.ä. speichern
+- Methode placeBet,um einen Wetteinsatz abgeben zu können
+- Methode claimPrice, um Gewinn zu erhalten
+- Methode, um den optimalen Wetteinsatz berechnen zu können
+- Methoden, um Informationen vom Kartenzähler zu kriegen
+
+
+Kartenzähler:
+- Methode haben, um einem Spieler eine Empfehlung zu geben
+- effektive Methode fürs Kartenzählen
+- Methoden, um Statistiken zu speichern/updaten 
+  und diese an die Teilnehmer des Spieles weitergeben zu können
+
+
+Aufgabe 2:
+
+Folgendes muss beachtet werden:
+- gleiches Kommunikationsormat der Nachrichten (sich im Google Docs Dokument einigen), zb requestStatistik als Nachricht fordert Statistiken an
+
+- Bestätigungen, dass Nachrichten ankommen und gegebenenfalls Löschung von Spielern, falls diese nach bestimmter Zeit nicht antworten
+	(wie 3 Hand shake Prinzip)
+
+
+Aufgabe 4:
+
+Es gab zu meinem Zeitpunkt zu wenig andere Abgaben, um die Funktionalität des Spiels zu testen und auch in der GoogleDocs gab es kaum was zum Kartenzähler
+Ich habe mich deshalb von der Namensgebung an andere Abgaben gehalten
