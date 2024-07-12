@@ -1,0 +1,23 @@
+In CMD folgendes ausführen:
+ipconfig/release
+ipconfig/renew
+Alternativ Netzwerkadapter ein/ausschalten
+
+Alle Paketen werden mithilfe von UDP versendet
+
+Bild Discover:
+IP-Adresse des Clients noch 0.0.0.0
+Destination:Broadcast
+-> Client ohne IP-Adresse sendet Broadcast-Anfrage nach Adress-Angeboten an alle DHCP-Server im lokalen Netz 
+
+Bild Offer:
+Ein DHCP-Server schickt Paket an meine MAC-Adresse
+Er gibt meinene IP-Adresse an
+-> DHCP-Server antworten mit entsprechenden Werten auf die Discover-Anfrage
+
+Bild Request:
+Client fordert eine der angebotenen IP-Adressen wieder mit einem Broadcast
+
+Bild Ack:
+DHCP-Server bestätigt die Request
+Client kriegt nun eine IP-Adresse zugewiesen

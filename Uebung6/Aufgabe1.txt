@@ -1,0 +1,50 @@
+Sliding Window Protokoll:
+- zur Optimierung des Quittungsbetrieb bei TCP-Paketen
+- Fenster (unquittierte Pakete) mit Größe n
+- Sender darf maximal n Pakete senden ohne auf ACK des Empfängers zu warten
+- wird ein ACK gesendet, verschiebt sich das Fenster um eins nach links
+
+
+TCP Tahoe:
+- Slow Start mit niedriger Übertragungsrate (Fenster zu Beginn 1 groß)
+- Fenster wird linear erhöht solange bis es keinen Paketerlust gibt
+- erkennt verlorenes Paket an duplikativen ACKs
+- bei Verlust Verringerung des Fensters auf 1 (exponentielle Reduktion)
+
+TCP Reno:
+- Analog zu Tahoe
+- hier wird Fenster bei Verlust nur halbiert
+
+
+TCP Vegas:
+- ermittelt Rount Trip Time (RTT)
+-> Abstand zwischen erwarteter und tatsächlicher Zeit, die ein Paket benötigt, 
+   um vom Sender zum Empfänger und wieder zurück zu kommen
+- passt Fenster basierend auf Differenz an
+
+
+
+Liste aller Protokolle:
+
+FDMA, TDMA, CDMA, CSMA/CD:
+-> Zur Bestimmung, wann wer senden darf -> schaffen fehlerfreien Kanal zw. 2 Koten, deshalb Ebene 2
+
+Ethernet: Datenaustausch innerhalb eines lokalen Netzes
+-> Ebene 1, da Kabeltypen u. Stecker festgelegtwerden
+-> Ebene 2, da Kanal schafft zw. 2 Knoten
+
+
+ARP/RARP:
+-> Ebene 3, da IP-Adressen auf MAC-Adressen mappt
+
+ICMP:
+-> Ebene 3, da es zur Netzverwaltung und Melden von Fehlern dient
+
+IP:
+-> Ebene 3, Weiterleitung und Adressierung von Paketen
+
+TCP/UDP:
+-> Ebene 4, regelt den Austausch von Anwendungen miteinander
+
+DHCP:
+-> Ebene 7, Automatische Konfiguration für TCP,IP

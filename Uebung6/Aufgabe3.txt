@@ -1,0 +1,83 @@
+a) 
+Befehl: nmap --unprivileged -sn 192.168.1.0/24
+Ergebnis: 256 IP addresses (0 hosts up) scanned in 104.95 seconds
+-sn = Führt Ping Scan durch, um zu sehen, welcher Host online ist
+--unprivileged = damit der Befhel ausgeführt werden kann, wenn man nicht mit Ethernet verbunden ist
+
+
+b)
+Befehl: nmap -O --unprivileged scanme.nmap.org
+Ergebnis: leider kriegich nur die Meldung obwohl ich die cmd mit Administratorrechten öffne:
+TCP/IP fingerprinting (for OS scan) requires root privileges.
+QUITTING!
+
+Wie es aussehen sollte:
+Starting Nmap 7.95 ( https://nmap.org ) at 2024-07-12 14:07 Mitteleuropäische Sommerzeit
+Nmap scan report for scanme.nmap.org (45.33.32.156)
+Host is up (0.20s latency).
+Not shown: 996 filtered tcp ports (no-response)
+PORT      STATE SERVICE
+22/tcp    open  ssh
+80/tcp    open  http
+9929/tcp  open  nping-echo
+31337/tcp open  Elite
+Device type: general purpose
+Running: Linux 2.6.X|3.X|4.X
+OS CPE: cpe:/o:linux:linux_kernel:2.6 cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4
+OS details: Linux 2.6.32 - 4.9
+Network Distance: 13 hops
+
+OS detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 27.35 seconds
+
+
+Es wird Linux verwendet
+-O = Aktiviert Betriebssystem-Erkennung
+
+
+c)
+Befehl:whois nmap.org
+Ergebnis:
+Domain Name: nmap.org
+Registry Domain ID: 5ed7a21fc9f74f97b55511f9857111f0-LROR
+Registrar WHOIS Server: whois.dynadot.com
+Registrar URL: http://www.dynadot.com
+Updated Date: 2023-08-31T05:05:15Z
+Creation Date: 1999-01-18T05:00:00Z
+Registry Expiry Date: 2029-01-18T05:00:00Z
+Registrar: Dynadot Inc
+Registrar IANA ID: 472
+Registrar Abuse Contact Email: abuse@dynadot.com
+Registrar Abuse Contact Phone: +1.6502620100
+Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited
+usw...
+
+-> 18.01.1999
+
+
+d) 
+Befehl: nmap -p 1-65535 -T4 -A -v 192.168.1.0/24.
+-p 1-65535: Scannt alle TCP-Ports von 1 bis 65535
+-T4: Setzt Timing-Option auf aggressiv -> verkürzt Wartezeiten zwischen Paketen
+-A: führt aggessiven Scan aus -> sammelt zusätzlich Betriebssystem-, Versionsinformationen und Traceroute
+-v: Detaillierte Information während Scans
+
+
+weitere Möglichkeiten:
+-Pn: Parallelisierung 
+-sS: Verwendet Syn-Pakete -> schneller als vollständiger Verbindungsaufbau
+
+
+e) schnelle Methode, um offene TCP Ports zu finden
+sendet Syn Paket zum Empfänger, der Syn-Ack Paket zurücksendet
+es wird nicht der vollständige Verbindungsaufbau durchgeführt (Ack-Paket nicht gesendet)
+Verbindungsaufbau wird sofort abgebrochen, sobald eine Antwort des Empfängers kommt
+
+
+f)
+Port 80: HTTP -> für Zugriff auf Webseiten und andere Webressourcen
+Port 443: HTTPS -> Standardport für HTTPS, das für sichere Webkommunikation verwendet wird,
+	  	   Verschlüsselt Datenverkehr zwischen Webbrowser und Webserver
+Port 22: SSH -> zur Verwaltung von Netzwerkgeräten udn zum sicheren Zugriff auf entfernte Systeme über verschlüsselte Verbindung
+Port 21: FTP -> zur Übertragung von Dateien zwischen Client und Server über das Netzwerk
+Port 25: SMTP -> zum Übertragen von E-Mails zwischen Mailservern

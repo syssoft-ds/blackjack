@@ -1,0 +1,26 @@
+Algorithmus:
+1. Initialisierung: Jeder Router kennt seine Kosten zu seinen Nachbarn
+2. Aktualisierung: Jeder Router sendet regelmäßig seinen Distanzvektor an alle seine Nachbarn
+3. Aktualisierung: Router aktualisieren ihre Routingtabelle aufbauend auf den Vektor
+	-für jeden Eintrag des Vektors addiere Kosten zum Nachbarn via des Routers vom Vektor
+	- sind neue Kosten niedriger aktualisiere  die Einträge
+4. Wiederhole 2. und 3. bis es keine neuen Änderungen gibt
+
+
+b) Der Weg erhöht sich auf 7
+
+c) Router C erkennt sofort, dass er keine Distanzvektoren bekommt von Router D,
+wodurch die Wege, die über D führen nicht mehr aktualisiert werden und 
+er entfernt dann Router D aus seiner Tabelle und Vektor bzw markiert ihn als nicht mehr erreichbar. 
+Nachdem C dann wieder seinen Distanzvektor teilt mit den anderen Routern, 
+merken auch A und B, dass D ausgefallen ist und können dann dementsprechend ihre Tabellen anpassen
+
+
+Unterschiede zum Link-State Algorithmus:
+Beim L-S Algo kennt jeder Router die vollständige Netzwerktopologie und die Kosten zu allen Routern, 
+wodurch mit Dijkstra präzisere Berechnungen möglich sind. 
+Beim Distanzvektoralg. kennt jeder Router nur die Kosten zu seinen Nachbarn
+
+Im L-S Algo werden Updates nicht regelmäßig gesendet, sodern nur dann, wenn sich ein Zustand ändert z.B Ausfall eines Routers
+
+Der L-S Algo reagiert schneller auf Änderungen im Netzwerk, dafür aber komplexer ind erfordert mehr Ressourcen
