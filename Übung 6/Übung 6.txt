@@ -1,0 +1,140 @@
+Aufgabe 1
+
+Ein Sliding Window ist ein Mechanismus zur Flusskontrolle bei der Datenübertragung in Netzwerken. 
+Es dient dazu, eine Überlastung des Empfängers zu verhindern. Der Sender darf nur eine bestimmte 
+Anzahl von Datenpaketen senden, bevor er eine Bestätigung (ACK) vom Empfänger erwartet. Das Fenster 
+slided dann nach rechts, sodass der Sender weitere Pakete schicken kann, sobald er ein ACK 
+für die vorherigen Pakete erhält.
+
+TCP Tahoe: Das ist eine ältere Version von TCP. Wenn ein Paket verloren geht, interpretiert TCP 
+Tahoe dies immer als Stau im Netzwerk. Es halbiert dann die Fenstergröße und startet die Datenübertragung 
+langsam neu ("Slow Start"). Dieses Verhalten kann bei Paketverlusten zu unnötigen Leistungseinbußen führen.
+
+TCP Reno: Eine Verbesserung gegenüber TCP Tahoe. Es führt eine schnellere erneute Übertragung (Fast Retransmit) 
+ein. Wenn drei aufeinanderfolgende Bestätigungen (ACKs) für dasselbe Paket fehlen, sendet TCP Reno das 
+Paket erneut, ohne auf den Timeout zu warten. Dies verbessert die Reaktionszeit bei Paketverlusten.
+
+TCP Vega:  TCP Vega ist ein neuerer Algorithmus, der versucht, die Netzwerküberlastung proaktiv zu vermeiden. 
+Anstatt nur auf Paketverluste zu reagieren, misst TCP Vega die Round-Trip Time (RTT) der Pakete. Wenn die 
+RTT ansteigt, deutet dies auf eine mögliche Stauung hin. TCP Vega reagiert dann, indem es die Datenrate 
+verringert, um Staus zu vermeiden.
+
+Auf meiner Grafik sieht man die Fenstergröße bezüglich der Transmissionsnummer. 
+Man sieht wie TCP Reno effizienter bezüglich Übertragungsrate bei Paketverlusten ist als TCP Tahoe.
+
+Nun zu den, in der Vorlesung, vorgestellten Netzwerkprotokollen (die ich gefunden habe.)
+
+- TokenRing 	Ein Data-Link Layer Protocol, da es eine fehlerhafte 				
+			Übertragung gewährleisten soll. Laut Wikipedia
+			zählt der TokenRing auch zur Ebene 1, der Physical
+			Layer, definiert also auch einen Kabeltypen, ein
+			Medium für den Bitdatenstrom.
+
+- Ethernet 		Ein Data-Link Layer Protocol und Physical Layer Protocol, da 
+			es Festlegungen für Kabeltypen und Stecker sowie für 
+			Übertragungsformen (Signale auf der
+			Bitübertragungsschicht, Paketformate) festlegt.
+
+- ICMP 		Ein Network Layer Protocol, dass mit IP-Paketen, den Pfad im Netzwerk bestimmt.
+
+- IPv4 / IPv6 	Hauptprotokoll des Internets, stellt Grundlage der großen Netzwerk-
+			funktionalität dar. Ebene 3 Protokoll
+
+- UDP / TCP 	Beide Ebene 4 Protokolle; Ermöglichen Transport von Datagrammen oder Segmenten
+			in IP-basierten Netzwerken. TCP stellt dazu sicher, dass Pakete vermittelt wer-
+			den, da es verbindungsorientiert und somit zuverlässig funktioniert.
+
+- DNS			Ein Ebene 7 Protokoll. Es ist dafür zuständig, Namensanforderungen von Applikationen
+			in IP-Adressen zu übersetzen.
+
+- ARCNET		Eine alte Lösung für die Normierung der Kabeltypen und Signalisierung des Bitstroms. 
+			Demnach ein Ebene 1 Protokoll, ein Physical Layer Protocol im OSI-Modell.
+
+
+Aufgabe 2
+
+Ich habe den Windows Befehl ipconfig /renew verwendet, um meine IP anzufordern. Folglich sende ich
+ein DHCP-Request Packet an die DHCP-Server, wobei meine IP-Adress nur einmal vergeben werden sollte.
+(Ob hierbei Unicast oder Multicast stattfindet, wird anscheinend im Vorhinein entschieden. Bei mir
+war es Unicast, da ich nur 1 DHCP-Server habe, vermute ich.)
+Ein DHCP-Server der meine Anforderung erfüllt sendet mir dann ein DHCP-ACK Packet. Der Server lässt
+sich hierbei im ACK-Packet ablesen:
+
+DHCP Server Identifier: 192.168.178.1
+
+Zusätzlich lässt sich noch ablesen:
+Dessen Domain Name: fritz.box, und, dass es sich um meinen Router handelt.
+Dazu gab es in dem gesendet Packet noch ein Pad mit 251 Bytes.
+Im Request Packet sieht man tatsächlich, dass es sich um einen Unicast Broadcast handelt.
+
+Bootp flags: 0x0000 (Unicast)
+    0... .... .... .... = Broadcast flag: Unicast
+    .000 0000 0000 0000 = Reserved flags: 0x0000
+
+
+Aufgabe 3 
+
+a) Wie viele Hosts befinden sich in ihrem lokalen Klasse-C-Netz? -> nmap -sn 192.168.0.0/24
+	-sn scannt nicht Ports und scannt nur Anzahl der Hosts
+	192.168.0.0/24 scannt das gesamte Klasse C Netz
+	A: Nmap done: 256 IP addresses (0 hosts up) scanned in 211.55 seconds
+
+b) Welches Betriebssystem wird von scanme.nmap.org verwendet? -> nmap -O scanme.nmap.org
+	-O ist nötig um OS zu scannen
+	A: Aggressive OS guesses: Linux 4.15 - 5.19 (96%), MikroTik RouterOS 7.2 - 7.5 (Linux 5.6.3) (95%),
+ 	Linux 3.2 - 4.14 (93%), Linux 2.6.32 - 3.10 (92%), Linux 5.0 - 5.14 (92%), Linux 4.12 (91%), Linux 4.15 (91%), 	Linux 5.10 (91%), Linux 3.10 (91%), Linux 4.19 (91%)
+	No exact OS matches for host (test conditions non-ideal).
+
+c) An welchem Datum wurde die Webseite nmap.org registriert? -> whois nmap.org
+	whois um an solche Infos zu kommen.
+	A: Created: 1999-01-18 05:00:00 UTC 
+
+d) Wie kann man möglichst effektiv eine größere Menge an Adressen nach offenen TCP-Ports scannen? 
+	-> nmap -p - -T4 192.168.0.0/24
+	Timing 4 ist Aggressive, also schnell 
+	-p- scannt alle offenen TCP Ports
+	A: 256 IP addresses (0 hosts up) scanned in 108.21 seconds
+
+e) Wie funktioniert der SYN-Scan und für was kann man ihn verwenden? 
+	A: -sS führt einen SYN-Scan durch, was bedeutet, dass schneller und unauffälliger gescannt wird.
+
+f) Welches sind die offenen Ports, die bei Ihren bisherigen Nmap-Scans am häufigsten auftreten, 
+   und wofür werden sie verwendet?
+	- keine nützlichen befehle gefunden - 
+
+
+Aufgabe 4
+
+Betrachten wir Router B:
+Initialisierung - Router initialisieren unsere Matrix. Hierbei wissen wir, dass Weg zu A 3 und zu C 2 kostet. 
+			Diese werden den anderen Routern mitgeteilt. Zeitgleich erhält auch B Infos zu Kosten anderer.
+Aktualisierung - 	B aktualisiert die Kosten, die er von anderen Routern erhalten hat. Auch sieht man jetzt einen
+			Weg zu D und dessen Kosten. Die besten Pfade markiert B und sendet diese an seine Nachbarn.
+Aktualisierung - 	B erhält Informationen von Nachbarn und weiß nun, dass seine Wege am besten sind.
+
+Endgültiges    -	B erhält keine neuen Informationen, seine Wege sind bereits die Besten.
+Ergebnis		
+
+Demnach ist ein Algorithmus wie folgt auch aufgebaut
+
+	1. Initialisiere; Jeder Router kennt zunächst nur die Kosten 
+				(meistens die Anzahl der Hops) zu sich selbst (die Kosten sind 0) 
+				und zu seinen direkten Nachbarn.
+	
+	2. Tausche aus;	In regelmäßigen Abständen senden Router ihre gesamte Routing-Tabelle an alle 
+				benachbarten Router. Eine Routing-Tabelle enthält Informationen über das Netzwerk, 
+				das jeder Router kennt, sowie die Kosten, um diese Netzwerke zu erreichen.
+				Wenn ein Router eine Routing-Tabelle von einem Nachbarn erhält, überprüft er, 
+				ob die empfangenen Informationen einen besseren Pfad zu einem Zielnetzwerk bieten 
+				als der bereits bekannte Pfad. Wenn ja, aktualisiert der 
+				Router seine eigene Routing-Tabelle entsprechend.
+	
+	3. Terminiere;	Wenn über einen bestimmten Zeitraum keine Daten mehr empfangen werden sind die
+				Pfade berechnet und endgültig. Algorithmus ist vorbei.
+
+a) siehe Bild 4a.png
+b) siehe Bild 4b.png
+	dazu: Ja nun ist der Weg über y kostengünstiger.
+c) Ich denke, dass alle Router merken, dass Router C ausgefallen ist, da alle mit diesem verbunden sind.
+   C erfährt dies sofort, da er nur 1 Router zwischen sich und D hat. A und B erfahren dies, dadurch, dass
+   sie 2 Router von D entfernt sind etwas später.

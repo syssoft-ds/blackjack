@@ -1,0 +1,31 @@
+Aufgabe 1
+Spieler:
+Variablen für Startkapital, Hand (eine Liste/Array der Karten) inklusive der Variablen der
+UDP-Musterlösung.
+Methoden SetzeWette() um am Spiel teilzunehmen, empfangeMsg() um mit dem Croupier zu kommunizieren
+inklusive gegebenenfalls Methoden der UDP Implementierung der letzten Übung.
+
+Croupier:
+Variablen für den Spieler, Card Counter, Deck (Kartenstack), Hand (Kartenarray) sowie des Spiel-
+stands.
+Methoden um die einzelnen Gamestates zu erzeugen, also Karten austeilen, die Feststellung, wer ge-
+wonnen hat, sowie eine Methode um den Spielstand abzufragen. Spieler sollten außerdem in einer Methode
+entfernt und hinzugefügt werden können basierend auf ihren Netzwerkdaten. Andere Methoden könnten
+auch Verwendung finden, wie Kartenstand abfragen oder Gewinn/Verlust berechnen.
+
+Kartenzaehler:
+Variablen für den Kartenstand und für den Croupier.
+Als Methoden reichen hier wie beim Spieler empfangeMsg() und sowas wie getKartenstand().
+
+Aufgabe 2
+Es muss ein einheitliches Nachrichtenformat zwischen den Klassen geben. Gut wären zum Beispiel Worte in
+verschickten Nachrichten auf Deutsch/Englisch je nach Format. Ist eine Nachricht gesendet, sollte der
+Sender eine Bestätigung vom Empfänger erhalten. Dies bestätigt nicht nur den Empfang der Nachricht,
+sondern auch die korrekte Interpretation und Verarbeitung. Falls keine Bestätigung erfolgt oder eine
+fehlerhafte Nachricht empfangen wird, sollte die Nachricht erneut gesendet werden. (Hand Shake)
+Der Croupier sollte hierbei der Server sein und den Spielablauf steuern, so wie es in echt auch
+praktisch der Fall ist.
+
+Aufgabe 4
+Leider nicht genügend Zeit
+
